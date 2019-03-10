@@ -68,6 +68,29 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
         }
     };
 
+    $scope.login = function () {
+        if($scope.properties.login != "" && $scope.properties.password != ""){
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", 'http://127.0.0.1:8085/api/login', true);
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json);
+                    if(json.succes === true){
+                        console.log("YES");
+                        $scope.properties.seed = json.data[0].Wallet;
+                        $scope.submit();
+                    }else{
+                        console.log("something went bad :(");
+                    }
+                }};
+            var data = JSON.stringify({"login": $scope.properties.login, "password": $scope.properties.password});
+            xhr.send(data);
+        }
+    };
+
     $scope.submit = function (getAccount = false, callback = function(){}) {
 
         if (Mnemonic.isValid($scope.properties.seed)) {

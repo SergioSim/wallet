@@ -17,7 +17,7 @@ exports.login = function(data, calback) {
 		console.log(data.login + "= data.login  "  + result+ "= result.login    ")
 		Response = {
 			succes: !err && result.length != 0,
-			msg : !err && result.length == 0 ? "utiisateur non TROUVE" : "connexion reussi",
+			data : !err && result.length == 0 ? "utiisateur non TROUVE" : result,
 			access_token: !err ? jwt.sign({id:result.id}, 'secretkey') : ''}
 		calback(Response);
 	});

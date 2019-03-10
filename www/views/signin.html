@@ -2,7 +2,7 @@
   <div class="col-md-offset-3 col-md-6" ng-switch on="display">
 
     <!-- Sign in form -->
-    <form method="post" ng-submit="submit()" name="properties.signinForm" autocomplete="off" ng-switch-when="signin">
+    <form method="post" ng-submit="login()" name="properties.signinForm" autocomplete="off" ng-switch-when="signin">
 
       <div class="panel panel-primary">
         <div class="panel-heading">
@@ -26,8 +26,10 @@
           <hr />
 
           <div class="form-group" ng-class="{'has-error': properties.signinForm.seed.$invalid }">
-            <label class="control-label" for="seed">Passphrase</label>
-            <input class="form-control hash-password" name="seed" type="text" id="seed" ng-model="properties.seed" ng-change="properties.signinForm.seed.$setValidity('invalidSeed', true)" placeholder="Passphrase">
+            <label class="control-label" for="password">Login</label>
+            <input class="form-control hash-password" name="login" type="text" id="login" ng-model="properties.login" placeholder="Login">
+            <label class="control-label" for="password">Password</label>
+            <input class="form-control hash-password" name="password" type="password" id="password" ng-model="properties.password" placeholder="Password">
           </div>
 
         </div>
