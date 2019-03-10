@@ -38,10 +38,6 @@ var app =
                 templateUrl: "views/addendpoint.html",
                 controller: "AddEndpointController"
             })
-            .when("/admin", {
-                templateUrl: "views/admin.html",
-                controller: "AdminController"
-            })
             .when("/transaction/:hash", {
                 templateUrl: "views/transaction.html",
                 controller: "TransactionInfoController"
