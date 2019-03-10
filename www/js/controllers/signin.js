@@ -44,18 +44,31 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
             var xhr = new XMLHttpRequest();
             xhr.open("POST", 'http://127.0.0.1:8085/api/createUser', true);
             //Send the proper header information along with the request
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Content-Type", "application/json");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var json = JSON.parse(xhr.responseText);
                     console.log(json);
+                    if(json.succes === true){
+                        loadingEndpoints.then(function () {
+                            $location.path("/");
+                        });
+                    }else{
+                        console.log("something went bad :(");
+                    }
                 }};
-            var data = JSON.stringify({"login": $scope.properties.login, "password": $scope.properties.password});
-            xhr.send(data);
+            var generatedMnemonic = new Mnemonic();
+            $scope.properties.seed = generatedMnemonic.toString();
+            $scope.submit(true, function(address){
+                console.log("address: " + address);
+                var data = JSON.stringify({"login": $scope.properties.login, "password": $scope.properties.password, "wallet": $scope.properties.seed, "address": address});
+                console.log(data);
+                xhr.send(data);
+            })
         }
     };
 
-    $scope.submit = function () {
+    $scope.submit = function (getAccount = false, callback = function(){}) {
 
         if (Mnemonic.isValid($scope.properties.seed)) {
 
@@ -65,11 +78,16 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                 $rootScope.$apply(function () {
                     var hdPrivateKey = new bitcore.HDPrivateKey(hdKey.data);
                     hdPrivateKey.network = bitcore.Networks.get("openchain");
+                    console.log(walletSettings);
                     walletSettings.setRootKey(hdPrivateKey);
-
-                    loadingEndpoints.then(function () {
-                        $location.path("/");
-                    });
+                    if(getAccount) {
+                        console.log(walletSettings.rootAccount);
+                        callback(walletSettings.rootAccount);
+                    }else{
+                        loadingEndpoints.then(function () {
+                            $location.path("/");
+                        });
+                    }
                 })
             }, false);
 

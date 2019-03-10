@@ -3,6 +3,7 @@ const http   	= require('http');
 const multer 	= require('multer'); // pour les formulaires multiparts
 const bodyParser= require('body-parser');
 const mysqlDB 	= require('./crud-mysql');
+const util 		= require('util')
 
 const app      	= express();
 const server 	= http.Server(app);
@@ -22,7 +23,7 @@ app.use(function (req, res, next) {
 });
 
 app.post('/api/createUser', function(req, res) {
-	console.log("/createUser: " + JSON.stringify(req.body));
+	console.log("/createUser: " + util.inspect(req.body, {showHidden: false, depth: null}));
 	mysqlDB.createUser(req.body, function(data) {
 		res.send(JSON.stringify(data)); 
 	});
