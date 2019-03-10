@@ -39,6 +39,22 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
         $scope.display = "signin";
     };
 
+    $scope.register = function () {
+        if($scope.properties.login != "" && $scope.properties.password != "" && $scope.properties.password == $scope.properties.password2){
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", 'http://127.0.0.1:8085/api/createUser', true);
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json);
+                }};
+            var data = JSON.stringify({"login": $scope.properties.login, "password": $scope.properties.password});
+            xhr.send(data);
+        }
+    };
+
     $scope.submit = function () {
 
         if (Mnemonic.isValid($scope.properties.seed)) {
