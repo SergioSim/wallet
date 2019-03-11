@@ -64,7 +64,7 @@ var app =
             xhr.open("GET", 'http://localhost:8085/compteList');
 
 
-            $rootScope.nadir="giygiKSDHFKSJHDFJHSDHFKSDJHFKJSDHFKJSDHFKJSDygy";   
+            $rootScope.nadir="tttttttttttttttttttttttttttttttttttttttttttttt";   
        //     xhr.setRequestHeader("Content-Type", "application/json");
 
             xhr.onreadystatechange = function () {
