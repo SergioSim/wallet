@@ -1,0 +1,21 @@
+   <div class="jumbotron text-center">
+        <h1>List of compte</h1>
+                <h1>{{message}}</h1>
+
+        	<table class="table">
+        		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Prénom</th>
+				<th>Clé</th>
+			</tr>		
+			</thead>
+			<tbody>
+				<tr ng-repeat="compte in aaa">
+					<td>{{ compte.nom }}</td>
+					<td>{{ compte.prenom }}</td>
+					<td>{{ compte.cle }}</td>
+				</tr>
+			</tbody>  
+		</table>
+    </div>

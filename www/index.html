@@ -31,6 +31,8 @@
   <script src="js/controllers/submit.js"></script>
   <script src="js/controllers/transaction.js"></script>
   <script src="js/controllers/signin.js"></script>
+  <script src="js/controllers/contact.js"></script>
+
 
   <link rel="stylesheet/less" href="bower_components/bootstrap/less/bootstrap.less" />
   <link rel="stylesheet/less" href="less/theme.less" />
@@ -57,6 +59,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li ng-class="{'active': selectedTab == 'home'}"><a href="#/">Home</a></li>
+            <li ng-class="{'active': selectedTab == 'contact'}"><a href="#/contact"  ng-click="loadDataCount()">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">

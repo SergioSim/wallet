@@ -35,3 +35,35 @@ app.post('/api/login', function(req, res) {
 		res.send(JSON.stringify(data)); 
 	});
 });
+
+
+app.get('/compteList',function(req,res){
+	console.log("I received  a get requeste")
+
+
+        personne1= {
+       	nom:'sdfsdf',
+       	prenom:'sdcsdvsdv',
+       	cle:'vdsdvsdvssv'
+
+       };
+
+        personne2= {
+       	nom:'nadir allo',
+       	prenom:'szzzzzzzzzzzzzzzzzzzzzzz',
+       	cle:'vdsdvsdvsv'
+
+       };
+
+
+        personne3= {
+       	nom:'sdfsdf',
+       	prenom:'sdcsdvsdv',
+       	cle:'zzzzzzzzzzzzzzz'
+
+       };
+
+       var listCompte=[personne1,personne2,personne3];
+       res.send(JSON.stringify(listCompte)); 
+      
+});

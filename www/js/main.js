@@ -38,6 +38,10 @@ var app =
                 templateUrl: "views/addendpoint.html",
                 controller: "AddEndpointController"
             })
+            .when("/contact", {
+                templateUrl: "views/contact.html",
+                controller: "ContactController"  
+            })
             .when("/transaction/:hash", {
                 templateUrl: "views/transaction.html",
                 controller: "TransactionInfoController"
@@ -54,6 +58,23 @@ var app =
         };
     })
     .run(function ($rootScope, $window) {
+            $rootScope.loadDataCount  = function () {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", 'http://localhost:8085/compteList');
+
+
+            $rootScope.nadir="giygiKSDHFKSJHDFJHSDHFKSDJHFKJSDHFKJSDHFKJSDygy";   
+       //     xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    $rootScope.nadir=json;
+                    console.log(json);
+                }};
+                xhr.send(); 
+        };
         $rootScope.logOut = function () { $window.location.reload(); };
     });
 
