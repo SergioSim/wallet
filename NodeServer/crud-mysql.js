@@ -28,5 +28,14 @@ exports.login = function(data, calback) {
 	});
 }
 
+exports.compteList = function(data, calback) {
+	con.query("SELECT * FROM OpenchainUser.Contact WHERE ClientProprietaire=?",[data.login], function(err, result){
+		Response = {
+			succes: !err && result.length != 0,
+			data : !err && result.length == 0 ? "utiisateur non TROUVE" : result,
+			access_token: !err ? jwt.sign({id:result.id}, 'secretkey') : ''}
+		calback(Response);
+	});
+}
 
 

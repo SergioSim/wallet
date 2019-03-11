@@ -47,32 +47,8 @@ app.post('/api/createCount', function(req, res) {
 
 
 app.get('/compteList',function(req,res){
-	console.log("I received  a get requeste")
-
-
-        personne1= {
-       	nom:'sdfsdf',
-       	prenom:'sdcsdvsdv',
-       	cle:'vdsdvsdvssv'
-
-       };
-
-        personne2= {
-       	nom:'nadir allo',
-       	prenom:'szzzzzzzzzzzzzzzzzzzzzzz',
-       	cle:'vdsdvsdvsv'
-
-       };
-
-
-        personne3= {
-       	nom:'sdfsdf',
-       	prenom:'sdcsdvsdv',
-       	cle:'zzzzzzzzzzzzzzz'
-
-       };
-
-       var listCompte=[personne1,personne2,personne3];
-       res.send(JSON.stringify(listCompte)); 
-      
+	console.log("/compteList: " + util.inspect(req.query, {showHidden: false, depth: null}));
+  mysqlDB.compteList(req.query, function(data) {
+    res.send(JSON.stringify(data)); 
+  }); 
 });

@@ -58,22 +58,18 @@ var app =
         };
     })
     .run(function ($rootScope, $window) {
-            $rootScope.loadDataCount  = function () {
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", 'http://localhost:8085/compteList');
-       //     xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var json = JSON.parse(xhr.responseText);
-                    $rootScope.nadir=json;
-                    console.log(json);
-                }};
-                xhr.send(); 
-            };
+        $rootScope.loadDataCount  = function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8085/compteList?login=" + $rootScope.login);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                $rootScope.nadir=json;
+                console.log(json);
+            }};
+        xhr.send(); 
+        };
         $rootScope.logOut = function () { $window.location.reload(); };
-
-
-        });
+    });
 
 angular.module("OpenchainWallet.Controllers", []);
