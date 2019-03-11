@@ -50,6 +50,8 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                     var json = JSON.parse(xhr.responseText);
                     console.log(json);
                     if(json.succes === true){
+                        $rootScope.login = $scope.properties.login;
+                        console.log("$rootScope.login: " + $rootScope.login);
                         loadingEndpoints.then(function () {
                             $location.path("/");
                         });
@@ -79,7 +81,8 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                     var json = JSON.parse(xhr.responseText);
                     console.log(json);
                     if(json.succes === true){
-                        console.log("YES");
+                        $rootScope.login = $scope.properties.login;
+                        console.log("$rootScope.login: " + $rootScope.login);
                         $scope.properties.seed = json.data[0].Wallet;
                         $scope.submit();
                     }else{

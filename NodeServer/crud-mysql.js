@@ -13,14 +13,13 @@ exports.createUser = function(data, calback) {
 }
 
 exports.createCount = function(data, calback) {	
-	con.query("INSERT INTO OpenchainUser.Client  (Nom, Prenom,Address) VALUES (?,?,?)", [data.nom, data.prenom, data.address], function(err, result){
+	con.query("INSERT INTO OpenchainUser.Contact  (ClientProprietaire, ClientContact, Nom, Prenom) VALUES (?,?,?,?)", [data.monLogin, data.sonLogin, data.nom, data.prenom], function(err, result){
 		calback({ succes: !err});
 	});
 }
 
 exports.login = function(data, calback) {
 	con.query("SELECT * FROM OpenchainUser.Client WHERE Login=? AND Password LIKE BINARY ? ",[data.login, data.password], function(err, result){
-		console.log(data.login + "= data.login  "  + result+ "= result.login    ")
 		Response = {
 			succes: !err && result.length != 0,
 			data : !err && result.length == 0 ? "utiisateur non TROUVE" : result,

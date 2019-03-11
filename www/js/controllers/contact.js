@@ -17,41 +17,29 @@ var module = angular.module("OpenchainWallet.Controllers");
 // ***** AddEndpointController *****
 // *********************************
 
-module.controller("ContactController", function ($scope,$http) {
+module.controller("ContactController", function ($scope,$rootScope,$http) {
 
-    $scope.addContact = function () {
-            console.log("ohihezoifhzoehff11118888888");
-         
-            console.log($scope.properties.login)
-
-            
-    
-               var xhr = new XMLHttpRequest();
-                xhr.open("POST", 'http://127.0.0.1:8085/api/createCount', true);
-                //Send the proper header information along with the request
-                xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        var json = JSON.parse(xhr.responseText);
-                        console.log(json);
-                        if(json.succes === true){
-                            loadingEndpoints.then(function () {
-                                $location.path("/");
-                            });
-                        }else{
-                            console.log("something went bad :(");
-                        }
-                    }};
-                var generatedMnemonic = new Mnemonic();
-             //   $scope.properties.seed = generatedMnemonic.toString();
-            
-             //   $scope.submit(true, function(){
-                    var data = JSON.stringify({"nom": "gchghc", "prenom": "hchgch77777777777777777"});
-                    console.log(data);
-                    xhr.send(data);
-               // })        
-     
-      };
+  $scope.addContact = function () {
+    console.log("addContact");
+    console.log("$rootScope.login: " + $rootScope.login);
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", 'http://127.0.0.1:8085/api/createCount', true);
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json);
+            if(json.succes === true){
+                $rootScope.loadDataCount();
+            }else{
+                console.log("something went bad :(");
+            }
+        }};
+        var data = JSON.stringify({"monLogin":$rootScope.login , "sonLogin":$scope.properties.hislogin, "nom": $scope.properties.nom, "prenom": $scope.properties.prenom});
+        console.log(data);
+        xhr.send(data);   
+    };
 
 
 
