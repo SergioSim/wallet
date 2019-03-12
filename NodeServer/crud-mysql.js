@@ -12,6 +12,12 @@ exports.createUser = function(data, calback) {
 	});
 }
 
+exports.createCount = function(data, calback) {	
+	con.query("INSERT INTO OpenchainUser.Client  (Nom, Prenom,Address) VALUES (?,?,?)", [data.nom, data.prenom, data.address], function(err, result){
+		calback({ succes: !err});
+	});
+}
+
 exports.login = function(data, calback) {
 	con.query("SELECT * FROM OpenchainUser.Client WHERE Login=? AND Password LIKE BINARY ? ",[data.login, data.password], function(err, result){
 		console.log(data.login + "= data.login  "  + result+ "= result.login    ")
@@ -22,5 +28,6 @@ exports.login = function(data, calback) {
 		calback(Response);
 	});
 }
+
 
 

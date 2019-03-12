@@ -62,11 +62,7 @@ var app =
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", 'http://localhost:8085/compteList');
-
-
-            $rootScope.nadir="tttttttttttttttttttttttttttttttttttttttttttttt";   
        //     xhr.setRequestHeader("Content-Type", "application/json");
-
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var json = JSON.parse(xhr.responseText);
@@ -74,8 +70,10 @@ var app =
                     console.log(json);
                 }};
                 xhr.send(); 
-        };
+            };
         $rootScope.logOut = function () { $window.location.reload(); };
-    });
+
+
+        });
 
 angular.module("OpenchainWallet.Controllers", []);

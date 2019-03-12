@@ -37,6 +37,15 @@ app.post('/api/login', function(req, res) {
 });
 
 
+app.post('/api/createCount', function(req, res) {
+  console.log("/createCount: " + util.inspect(req.body, {showHidden: false, depth: null}));
+  mysqlDB.createCount(req.body, function(data) {
+    res.send(JSON.stringify(data)); 
+  });
+});
+
+
+
 app.get('/compteList',function(req,res){
 	console.log("I received  a get requeste")
 

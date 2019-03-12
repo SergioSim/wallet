@@ -19,9 +19,79 @@ var module = angular.module("OpenchainWallet.Controllers");
 
 module.controller("ContactController", function ($scope,$http) {
 
+    $scope.addContact = function () {
+            console.log("ohihezoifhzoehff11118888888");
+         
+            console.log($scope.properties.login)
 
+            
     
-       $scope.message="zdbvorubeouvbeorbv";
+               var xhr = new XMLHttpRequest();
+                xhr.open("POST", 'http://127.0.0.1:8085/api/createCount', true);
+                //Send the proper header information along with the request
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var json = JSON.parse(xhr.responseText);
+                        console.log(json);
+                        if(json.succes === true){
+                            loadingEndpoints.then(function () {
+                                $location.path("/");
+                            });
+                        }else{
+                            console.log("something went bad :(");
+                        }
+                    }};
+                var generatedMnemonic = new Mnemonic();
+             //   $scope.properties.seed = generatedMnemonic.toString();
+            
+             //   $scope.submit(true, function(){
+                    var data = JSON.stringify({"nom": "gchghc", "prenom": "hchgch77777777777777777"});
+                    console.log(data);
+                    xhr.send(data);
+               // })        
+     
+      };
+
+
+
+
+
+/*
+  $scope.addContact = function () {
+            console.log("oxqadazdzadazddazdazhihezoifhzoehff");
+            console.log($scope.compte)
+     
+  /*             var xhr = new XMLHttpRequest();
+                xhr.open("POST", 'http://127.0.0.1:8085/api/createCount', true);
+                //Send the proper header information along with the request
+                xhr.setRequestHeader("Content-Type", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var json = JSON.parse(xhr.responseText);
+                        console.log(json);
+                        if(json.succes === true){
+                            loadingEndpoints.then(function () {
+                                $location.path("/");
+                            });
+                        }else{
+                            console.log("something went bad :(");
+                        }
+                    }};
+        //        var generatedMnemonic = new Mnemonic();
+       //         $rootScope.properties.seed = generatedMnemonic.toString();
+                $rootScope.submit(true, function(address){
+                    console.log("address: " + address);
+                    var data = JSON.stringify({"nom": "gchghc", "prenom": "hchgch", "cle": "ffxfxf"});
+                    console.log(data);
+                    xhr.send(data);
+                })
+            
+   */ 
+   //    };
+
+
+     //  $scope.message="zdbvorubeouvbeorbv";
 
     /*    personne1= {
        	nom:'sdfsdf',
