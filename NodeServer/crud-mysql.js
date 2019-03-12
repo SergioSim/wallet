@@ -13,7 +13,7 @@ exports.createUser = function(data, calback) {
 }
 
 exports.createCount = function(data, calback) {	
-	con.query("INSERT INTO OpenchainUser.Client  (Nom, Prenom,Address) VALUES (?,?,?)", [data.nom, data.prenom, data.address], function(err, result){
+	con.query("INSERT INTO OpenchainUser.Client  (Nom, Prenom) VALUES (?,?,?)", [data.nom, data.prenom], function(err, result){
 		calback({ succes: !err});
 	});
 }
