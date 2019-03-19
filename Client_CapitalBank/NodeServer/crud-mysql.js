@@ -7,7 +7,7 @@ const con = mysql.createConnection({
 	password: "OpenchainUserPassword13?"});
 
 exports.createUser = function(data, calback) {	
-	con.query("INSERT INTO OpenchainUser.Client  (Login, Password, Wallet, Address) VALUES (?,?,?,?)", [data.login, data.password, data.wallet, data.address], function(err, result){
+	con.query("INSERT INTO OpenchainUser.Client  (Login, Password, Wallet, Address, Banque) VALUES (?,?,?,?)", [data.login, data.password, data.wallet, data.address, data.banque], function(err, result){
 		calback({ succes: !err});
 	});
 }

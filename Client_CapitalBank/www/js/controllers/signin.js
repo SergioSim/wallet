@@ -63,7 +63,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
             $scope.properties.seed = generatedMnemonic.toString();
             $scope.submit(true, function(address){
                 console.log("address: " + address);
-                var data = JSON.stringify({"login": $scope.properties.login, "password": $scope.properties.password, "wallet": $scope.properties.seed, "address": address});
+                var data = JSON.stringify({"login": $scope.properties.login, "password": $scope.properties.password, "wallet": $scope.properties.seed, "address": address, "banque": "CapitalBank"});
                 console.log(data);
                 xhr.send(data);
             })
