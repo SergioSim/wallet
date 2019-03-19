@@ -1,6 +1,5 @@
    <div class="jumbotron text-center">
-   	<h1>List of compte</h1>
-   	<h1>{{na}}</h1>
+   	<h1>Contact List</h1>
 
    	<fieldset class="scheduler-border">
    		<legend class="scheduler-border"> Add Contact</legend>
@@ -43,7 +42,7 @@
    				<td>{{ compte.Nom }}</td>
    				<td>{{ compte.Prenom }}</td>
    				<td>{{ compte.ClientContact }}</td>
-   				<td></td>
+				<td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
    			</tr>
    		</tbody>  
    	</table>

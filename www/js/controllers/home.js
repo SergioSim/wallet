@@ -37,6 +37,30 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
         "memo": ""
     };
 
+    
+
+    $scope.addContact = function () {
+        console.log("addContact");
+        console.log("$rootScope.login: " + $rootScope.login);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'http://127.0.0.1:8085/api/createCount', true);
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                if(json.succes === true){
+                    $rootScope.loadDataCount();
+                }else{
+                    console.log("something went bad :(");
+                }
+            }};
+            var data = JSON.stringify({"monLogin":$rootScope.login , "sonLogin":$scope.properties.hislogin, "nom": $scope.properties.nom, "prenom": $scope.properties.prenom});
+            console.log(data);
+            xhr.send(data);   
+        };
+
     // Load all assets in the account
     var balance = [];
 
