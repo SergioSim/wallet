@@ -58,10 +58,50 @@
 
   </div>
   
-  Pour demander une carte de associée à votre portefeuille <button ng-class="{'active': selectedTab == 'contact'}"><a href="#/"  ng-click="loadDataCount()">Cliquer ici</a></button>
+  Pour demander une carte de associée à votre portefeuille <button type="button" ng-class="{'active': selectedTab == 'contact'}" ng-click="generate()">Create a new wallet</button>
 </br></br>
+<form method="post" ng-submit="register()" name="properties.signinForm" autocomplete="off" ng-switch-when="passphrase">
 
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Demander une carte associée a votre portefeuille</h3>
+    </div>
+    <div class="panel-body">
 
+      <div class="body-header">
+        <i class="fa fa-lock fa-3x pull-left fa-border"></i>
+      </div>
+      <hr>
+
+<!--        <pre>{{ passphrase }}</pre>  -->
+      <div class="form-group">
+          <label class="control-label" for="Nom">Nom</label>
+          <input class="form-control hash-password" name="Nom" type="text" id="Nom" ng-model="properties.Nom" placeholder="Nom">
+          <label class="control-label" for="Prenom">Prénom</label>
+          <input class="form-control hash-password" name="Prenom" type="text" id="Prenom" ng-model="properties.Prenom" placeholder="Prenom">
+          <label class="control-label" for="Ville">Ville</label>
+          <input class="form-control hash-password" name="Ville" type="text" id="Ville" ng-model="properties.Ville" placeholder="Ville">
+          <label class="control-label" for="Rue">Rue</label>
+          <input class="form-control hash-password" name="Rue" type="text" id="Rue" ng-model="properties.Rue" placeholder="Rue">
+          <label class="control-label" for="NumeroRue">Numero de la Rue</label>
+          <input class="form-control hash-password" name="NumeroRue" type="text" id="NumeroRue" ng-model="properties.NumeroRue" placeholder="Numéro de la rue">
+          <label class="control-label" for="CodePostal">Code postal</label>
+          <input class="form-control hash-password" name="CodePostal" type="text" id="CodePostal" ng-model="properties.CodePostal" placeholder="Code Postal">
+          
+        </div>
+
+    </div>
+    <div class="panel-footer text-right">
+
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary">Send</button>
+          <button type="button" class="btn btn-primary" ng-click="back()">Exit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
 
 
 <div class="jumbotron text-center">

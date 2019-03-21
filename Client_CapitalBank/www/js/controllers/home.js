@@ -37,6 +37,11 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
         "memo": ""
     };
 
+    $scope.generate = function () {
+        var generatedMnemonic = new Mnemonic();
+        $scope.passphrase = generatedMnemonic.toString();
+        $scope.display = "passphrase";
+    };
     
 
     $scope.addContact = function () {
