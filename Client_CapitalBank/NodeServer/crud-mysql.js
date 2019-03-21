@@ -48,6 +48,20 @@ exports.createUser = function(data, calback) {
 	});
 }
 
+exports.demandeCartePortefeuille = function(data, calback) {	
+	//data.monLogin
+	//data.sonLogin
+	////data.nom
+	//data.prenom
+
+
+	//if(!err){
+		console.log("ouiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+	}
+	//	calback({ succes: !err});
+	
+//}
+
 exports.createCount = function(data, calback) {	
 	con.query("INSERT INTO OpenchainUser.Contact  (ClientProprietaire, ClientContact, Nom, Prenom) VALUES (?,?,?,?)", [data.monLogin, data.sonLogin, data.nom, data.prenom], function(err, result){
 		calback({ succes: !err});

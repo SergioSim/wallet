@@ -37,6 +37,31 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
         "memo": ""
     };
 
+    
+    $scope.sendMailer = function () {
+        console.log("addContact");
+        console.log(" nom: " + $scope.properties.Nom);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", 'http://127.0.0.1:8085/api/demandeCartePortefeuille', true);
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                if(json.succes === true){
+                    //$rootScope.loadDataCount();
+                    console.log("Yesss");
+
+                }else{
+                    console.log("something went bad :(");
+                }
+            }};
+            var data = JSON.stringify({"Nom":$scope.Nom });
+            console.log(data);
+            xhr.send(data);   
+        };
+
     $scope.generate = function () {
         var generatedMnemonic = new Mnemonic();
         $scope.passphrase = generatedMnemonic.toString();

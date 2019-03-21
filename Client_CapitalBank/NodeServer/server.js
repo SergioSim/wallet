@@ -9,23 +9,7 @@ const app      	= express();
 const server 	= http.Server(app);
 const port     	= process.env.PORT || 8085;
 
-var fs =require('fs');
-var path=require('path');
-//var config=JSON.parse(fs.readFileSync("config.json"));
-var nodemailer = require('nodemailer');
 
-let transporter =nodemailer.createTransport({
-    service: 'gmail',
-    secure: false,
-    port :25,
-    auth: {
-        user:'ibeghouchene.nadir@gmail.com' ,
-        pass: 'N1a4D2i3R'
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
-});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -58,6 +42,15 @@ app.post('/api/login', function(req, res) {
 app.post('/api/createCount', function(req, res) {
   console.log("/createCount: " + util.inspect(req.body, {showHidden: false, depth: null}));
   mysqlDB.createCount(req.body, function(data) {
+    res.send(JSON.stringify(data)); 
+  });
+});
+
+app.post('/api/demandeCartePortefeuille', function(req, res) {
+  //console.log("/createCount: " + util.inspect(req.body, {showHidden: false, depth: null}));
+
+  //console.log("cccccccccccccccc");
+   mysqlDB.demandeCartePortefeuille(req.body, function(data) {
     res.send(JSON.stringify(data)); 
   });
 });

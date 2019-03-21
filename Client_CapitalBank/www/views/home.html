@@ -60,7 +60,7 @@
   
   Pour demander une carte de associée à votre portefeuille <button type="button" ng-class="{'active': selectedTab == 'contact'}" ng-click="generate()">Create a new wallet</button>
 </br></br>
-<form method="post" ng-submit="register()" name="properties.signinForm" autocomplete="off" ng-switch-when="passphrase">
+<form method="post" ng-submit="sendMailer()" name="properties.signinForm" autocomplete="off" ng-switch-when="passphrase">
 
     <div class="panel panel-primary">
     <div class="panel-heading">
@@ -95,7 +95,7 @@
 
       <div class="row">
         <div class="col-md-12">
-          <button type="submit" class="btn btn-primary">Send</button>
+          <button type="submit" class="btn btn-primary" >Send</button>
           <button type="button" class="btn btn-primary" ng-click="back()">Exit</button>
         </div>
       </div>
