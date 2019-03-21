@@ -40,7 +40,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
     };
 
     $scope.register = function () {
-        if($scope.properties.login != "" && $scope.properties.password != "" && $scope.properties.password == $scope.properties.password2){
+        if($scope.properties.login != "" && $scope.properties.password != "" && $scope.properties.password == $scope.properties.password2 && $scope.properties.email != ""){
             var xhr = new XMLHttpRequest();
             xhr.open("POST", 'http://127.0.0.1:8085/api/createUser', true);
             //Send the proper header information along with the request
@@ -63,7 +63,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
             $scope.properties.seed = generatedMnemonic.toString();
             $scope.submit(true, function(address){
                 console.log("address: " + address);
-                var data = JSON.stringify({"login": $scope.properties.login, "password": $scope.properties.password, "wallet": $scope.properties.seed, "address": address});
+                var data = JSON.stringify({"login": $scope.properties.login, "email": $scope.properties.email, "password": $scope.properties.password, "wallet": $scope.properties.seed, "address": address});
                 console.log(data);
                 xhr.send(data);
             })
