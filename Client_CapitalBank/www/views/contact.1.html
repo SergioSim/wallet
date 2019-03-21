@@ -1,0 +1,49 @@
+   <div class="jumbotron text-center">
+   	<h1>Contact List</h1>
+
+   	<fieldset class="scheduler-border">
+   		<legend class="scheduler-border"> Add Contact</legend>
+
+   		<form class="form-inline" method="post" ng-submit="addContact()" name="properties.signinForm" autocomplete="off" >
+
+   			<div class="form-group">
+   				<label class="control-label" for="login">Login</label>
+   				<input class="form-control hash-password" name="login" type="text" id="login" ng-model="properties.hislogin" placeholder="Login">
+   			</div>
+   			<div class="form-group">
+   				<label class="control-label" for="nom">Nom</label>
+   				<input class="form-control hash-password" name="nom type="text" id="nom" ng-model="properties.nom" placeholder="Nom">
+   			</div>
+   			<div class="form-group">
+   				<label class="control-label" for="prenom">Prenom</label>
+   				<input class="form-control hash-password" name="prenom" type="text" id="prenom" ng-model="properties.prenom" placeholder="Prenom">
+
+   			</div>
+   			<button type="submit" class="btn btn-primary">Add</button>
+
+   		</form>
+   	</fieldset>
+
+   </br></br></br>
+   <div class="container"  stype="pading:10px 10px">
+   	<table class="table table-bordered">
+
+   		<thead>
+   			<tr>
+   				<th><center>Nom</center></th>
+   				<th><center>Prénom</center></th>
+   				<th><center>Clé</center></th>
+   				<th><center>Action</center></th>
+   			</tr>		
+   		</thead>
+
+   		<tbody>
+   			<tr ng-repeat="compte in nadir.data">
+   				<td>{{ compte.Nom }}</td>
+   				<td>{{ compte.Prenom }}</td>
+   				<td>{{ compte.ClientContact }}</td>
+				<td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
+   			</tr>
+   		</tbody>  
+   	</table>
+   </div>

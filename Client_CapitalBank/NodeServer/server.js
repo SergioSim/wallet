@@ -9,6 +9,24 @@ const app      	= express();
 const server 	= http.Server(app);
 const port     	= process.env.PORT || 8085;
 
+var fs =require('fs');
+var path=require('path');
+//var config=JSON.parse(fs.readFileSync("config.json"));
+var nodemailer = require('nodemailer');
+
+let transporter =nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,
+    port :25,
+    auth: {
+        user:'ibeghouchene.nadir@gmail.com' ,
+        pass: 'N1a4D2i3R'
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 server.listen(port); // Lance le serveur avec express

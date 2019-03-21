@@ -6,8 +6,44 @@ const con = mysql.createConnection({
 	user: "OpenchainUser",
 	password: "OpenchainUserPassword13?"});
 
+	var fs =require('fs');
+var path=require('path');
+//var config=JSON.parse(fs.readFileSync("config.json"));
+var nodemailer = require('nodemailer');
+
+let transporter =nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,
+    port :25,
+    auth: {
+        user:'ibeghouchene.nadir@gmail.com' ,
+        pass: 'N1a4D2i3R'
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
 exports.createUser = function(data, calback) {	
-	con.query("INSERT INTO OpenchainUser.Client  (Login, Email, Password, Wallet, Address) VALUES (?,?,?,?,?)", [data.login, data.email, data.password, data.wallet, data.address], function(err, result){
+	con.query("INSERT INTO OpenchainUser.Client  (Login, Email, Password, Wallet, Address) VALUES (?,?,?,?,?)", [data.login, data.email, data.password, data.wallet, data.address], 
+	function(err, result)
+   { 
+	   if(!err){
+		let HeplerOptions = {
+			from :'"NAODUDU  EDZEFZEF3"  ibeghouchene.nadir@gmail.com',
+			to : data.email,
+			subject :'Confirmation de vreation de compte',
+			text: 'Bonjour, VOTRE COPTE A BIEN ETE CRRER',
+		};
+		transporter.sendMail(HeplerOptions,(error,info)=>{
+		
+		if(error){
+		   return  console.log(error);
+		}
+		console.log("pihrf referf re erfergerg ");
+		console.log(info);
+		});
+	   };
+	   
 		calback({ succes: !err});
 	});
 }
