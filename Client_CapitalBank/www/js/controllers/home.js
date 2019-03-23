@@ -89,6 +89,26 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
             var data = JSON.stringify({"monLogin":$rootScope.login , "sonLogin":$scope.properties.hislogin, "nom": $scope.properties.nom, "prenom": $scope.properties.prenom});
             console.log(data);
             xhr.send(data);   
+    };
+
+    $scope.deleteContact = function (contact) {
+        console.log("delete Contact " + contact);
+        console.log("$rootScope.login: " + $rootScope.login);
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", "http://127.0.0.1:8085/api/deleteContact?login=" + $rootScope.login + "&contact=" + contact, true);
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                if(json.succes === true){
+                    $rootScope.loadDataCount();
+                }else{
+                    console.log("something went bad :(");
+                }
+            }};
+            xhr.send();   
         };
 
     // Load all assets in the account

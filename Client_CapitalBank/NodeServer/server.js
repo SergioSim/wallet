@@ -48,14 +48,18 @@ app.post('/api/createCount', function(req, res) {
 
 app.post('/api/demandeCartePortefeuille', function(req, res) {
   //console.log("/createCount: " + util.inspect(req.body, {showHidden: false, depth: null}));
-
   //console.log("cccccccccccccccc");
    mysqlDB.demandeCartePortefeuille(req.body, function(data) {
     res.send(JSON.stringify(data)); 
   });
 });
 
-
+app.delete('/api/deleteContact', function(req, res) {
+  console.log("/deleteContact: " + util.inspect(req.query, {showHidden: false, depth: null}));
+  mysqlDB.deleteContact(req.query, function(data) {
+  res.send(JSON.stringify(data)); 
+  });
+});
 
 app.get('/compteList',function(req,res){
 	console.log("/compteList: " + util.inspect(req.query, {showHidden: false, depth: null}));

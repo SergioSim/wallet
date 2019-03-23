@@ -105,7 +105,6 @@
 
 
 <div class="jumbotron text-center">
-    <button ng-class="{'active': selectedTab == 'contact'}"><a href="#/"  ng-click="loadDataCount()">    Liste de bénéficiaires</a></button>
 
   <h1>Contact List</h1>
 
@@ -150,7 +149,7 @@
         <td>{{ compte.Nom }}</td>
         <td>{{ compte.Prenom }}</td>
         <td>{{ compte.ClientContact }}</td>
-     <td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i class="glyphicon glyphicon-trash"></i></a></td>
+     <td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i class="glyphicon glyphicon-trash" href="#/"  ng-click="deleteContact(compte.ClientContact)"></i></a></td>
       </tr>
     </tbody>  
   </table>
