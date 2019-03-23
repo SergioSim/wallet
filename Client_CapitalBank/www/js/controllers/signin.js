@@ -85,7 +85,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                         console.log("$rootScope.login: " + $rootScope.login);
                         $scope.properties.seed = json.data[0].Wallet;
                         $scope.submit();
-                        loadDataCount();
+                        $rootScope.loadDataCount();
                     }else{
                         console.log("something went bad :(");
                     }
