@@ -65,6 +65,7 @@ var app =
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
                 $rootScope.nadir=json;
+                $rootScope.$apply();
                 console.log(json);
             }};
         xhr.send(); 
