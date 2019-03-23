@@ -84,9 +84,6 @@
             <th>
               <center>Addresse</center>
             </th>
-            <th>
-              <center>Action</center>
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -95,9 +92,11 @@
             <td>{{ client.Prenom }}</td>
             <td>{{ client.Login }}</td>
             <td>{{ client.Email }}</td>
-            <td style="font-size:0.5em;">{{ client.Address }}</td>
-            <td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i
-                  href="#/" ng-click="deleteContact(compte.ClientContact)"></i></a></td>
+            <td style="font-size:0.5em;">
+              <a class="btn btn-xs delete-record" ng-click="viewTransactions(client.Address)">
+                {{ client.Address }}
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>
