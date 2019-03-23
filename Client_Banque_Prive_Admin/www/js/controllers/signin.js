@@ -51,6 +51,16 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                 console.log(json);
                 if(json.succes === true){
                     $rootScope.clientList = json.data;
+                    ($rootScope.clientList).forEach(client => {
+                        var endpoints = endpointManager.endpoints
+                        for (var key in endpoints) {
+                            endpoints = endpoints[key];
+                            break;
+                        }
+                        endpoints.apiService.getRecordMutations(client.Address + ":ACC:/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/").then(function (result) {
+                            client.transactions = result.map(function (item) { return item.toHex(); });
+                        });
+                    });
                     console.log($scope.clientList);
                 }else{
                     console.log("something went bad :(");

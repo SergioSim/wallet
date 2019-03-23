@@ -285,6 +285,7 @@ module.controller("TreeViewController", function ($scope) {
             }
 
             $scope.treeData = treeData;
+            console.log($scope.treeData);
             $scope.expandedNodes = [rootNode];
         });
     };
@@ -303,9 +304,11 @@ module.controller("TreeViewController", function ($scope) {
     $scope.selectNode = function (node, selected) {
         $scope.selectedNode = node;
         $scope.transactions = [];
-
+        console.log(node.key);
         $scope.endpoint.apiService.getRecordMutations(node.key).then(function (result) {
             $scope.transactions = result.map(function (item) { return item.toHex(); });
+            console.log("transactions:");
+            console.log($scope.transactions);
         });
     };
 
