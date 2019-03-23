@@ -50,7 +50,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                 var json = JSON.parse(xhr.responseText);
                 console.log(json);
                 if(json.succes === true){
-                    $scope.clientList = json.data;
+                    $rootScope.clientList = json.data;
                     console.log($scope.clientList);
                 }else{
                     console.log("something went bad :(");

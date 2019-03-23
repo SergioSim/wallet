@@ -65,8 +65,8 @@
   <div class="jumbotron text-center">
     <h1>Client List</h1>
     </br></br>
-    <div class="container" stype="pading:10px 10px">
-      <table class="table table-bordered">
+    <div class="container">
+      <table class="table table-bordered container" style="width: 100%;">
         <thead>
           <tr>
             <th>
@@ -76,7 +76,13 @@
               <center>Prénom</center>
             </th>
             <th>
-              <center>Clé</center>
+              <center>Login</center>
+            </th>
+            <th>
+              <center>Email</center>
+            </th>
+            <th>
+              <center>Addresse</center>
             </th>
             <th>
               <center>Action</center>
@@ -84,11 +90,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="compte in nadir.data">
-            <td>{{ compte.Nom }}</td>
-            <td>{{ compte.Prenom }}</td>
-            <td>{{ compte.ClientContact }}</td>
-            <td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i class="glyphicon glyphicon-trash"
+          <tr ng-repeat="client in clientList">
+            <td>{{ client.Nom }}</td>
+            <td>{{ client.Prenom }}</td>
+            <td>{{ client.Login }}</td>
+            <td>{{ client.Email }}</td>
+            <td style="font-size:0.5em;">{{ client.Address }}</td>
+            <td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i
                   href="#/" ng-click="deleteContact(compte.ClientContact)"></i></a></td>
           </tr>
         </tbody>
