@@ -118,4 +118,10 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
     $scope.cancelSend = function () {
         $route.reload();
     }
+
+    $scope.viewTransactions = function(transactions){
+        console.log("view transactions on " );
+        console.log(transactions);
+        $scope.transactions = transactions;
+    }
 });

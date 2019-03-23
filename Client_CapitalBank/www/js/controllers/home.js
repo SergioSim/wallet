@@ -109,7 +109,7 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
                 }
             }};
             xhr.send();   
-        };
+    };
 
     // Load all assets in the account
     var balance = [];

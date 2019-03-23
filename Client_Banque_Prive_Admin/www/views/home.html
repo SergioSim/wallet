@@ -93,13 +93,20 @@
             <td>{{ client.Login }}</td>
             <td>{{ client.Email }}</td>
             <td style="font-size:0.5em;">
-              <a class="btn btn-xs delete-record" ng-click="viewTransactions(client.Address)">
+              <a class="btn btn-xs delete-record" ng-click="viewTransactions(client.transactions)">
                 {{ client.Address }}
               </a>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+
+    <div class="tree-related-transactions">
+      <h4>Related transactions</h4>
+      <div ng-repeat="transaction in transactions">
+        <div><a href="#/transaction/{{ transaction }}">{{ transaction }}</a></div>
+      </div>
     </div>
 
     <!-- Send Screen -->
