@@ -24,7 +24,7 @@ let transporter =nodemailer.createTransport({
     }
 });
 exports.createUser = function(data, calback) {	
-	con.query("INSERT INTO OpenchainUser.Client  (Login, Email, Password, Wallet, Address) VALUES (?,?,?,?,?)", [data.login, data.email, data.password, data.wallet, data.address], 
+	con.query("INSERT INTO OpenchainUser.Client  (Login, Email, Password, Wallet, Address, Banque) VALUES (?,?,?,?,?,?)", [data.login, data.email, data.password, data.wallet, data.address, data.banque], 
 	function(err, result)
    { 
 	   if(!err){
@@ -39,7 +39,6 @@ exports.createUser = function(data, calback) {
 		if(error){
 		   return  console.log(error);
 		}
-		console.log("pihrf referf re erfergerg ");
 		console.log(info);
 		});
 	   };
@@ -49,18 +48,10 @@ exports.createUser = function(data, calback) {
 }
 
 exports.demandeCartePortefeuille = function(data, calback) {	
-	//data.monLogin
-	//data.sonLogin
-	////data.nom
-	//data.prenom
-
-
-	//if(!err){
-		console.log("ouiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
-	}
-	//	calback({ succes: !err});
-	
-//}
+	con.query("UPDATE OpenchainUser.Client SET Nom=?, Prenom=?, Loc=? WHERE Login=?", [data.nom, data.prenom, data.loc, data.login], function(err, result){
+		calback({ succes: !err});
+	});
+}
 
 exports.createCount = function(data, calback) {	
 	con.query("INSERT INTO OpenchainUser.Contact  (ClientProprietaire, ClientContact, Nom, Prenom) VALUES (?,?,?,?)", [data.monLogin, data.sonLogin, data.nom, data.prenom], function(err, result){

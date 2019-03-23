@@ -57,15 +57,14 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
                     console.log("something went bad :(");
                 }
             }};
-            var data = JSON.stringify({"Nom":$scope.Nom });
+            let adr = $scope.properties.NumeroRue + "-" + $scope.properties.Rue + "-" + $scope.properties.Ville + "-" + $scope.properties.CodePostal;
+            var data = JSON.stringify({"nom":$scope.properties.Nom, "prenom":$scope.properties.Prenom, "loc":adr, "login": $rootScope.login});
             console.log(data);
             xhr.send(data);   
         };
 
-    $scope.generate = function () {
-        var generatedMnemonic = new Mnemonic();
-        $scope.passphrase = generatedMnemonic.toString();
-        $scope.display = "passphrase";
+    $scope.showCardDemand = function () {
+        $scope.display = "CardDemand";
     };
     
 

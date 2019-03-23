@@ -47,8 +47,7 @@ app.post('/api/createCount', function(req, res) {
 });
 
 app.post('/api/demandeCartePortefeuille', function(req, res) {
-  //console.log("/createCount: " + util.inspect(req.body, {showHidden: false, depth: null}));
-  //console.log("cccccccccccccccc");
+   console.log("/demandeCartePortefeuille: " + util.inspect(req.body, {showHidden: false, depth: null}));
    mysqlDB.demandeCartePortefeuille(req.body, function(data) {
     res.send(JSON.stringify(data)); 
   });
