@@ -39,26 +39,41 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
         $scope.display = "signin";
     };
 
+    $scope.getClients = function () {
+        console.log("get Clients ");
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://127.0.0.1:8085/api/clientList?banque=CapitalBank", true);
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                if(json.succes === true){
+                    $scope.clientList = json.data;
+                    console.log($scope.clientList);
+                }else{
+                    console.log("something went bad :(");
+                }
+            }};
+            xhr.send();   
+        };
+
     $scope.submit = function () {
-
         if (Mnemonic.isValid($scope.properties.seed)) {
-
             var worker = new Worker("js/derive.js");
-
             worker.addEventListener("message", function (hdKey) {
                 $rootScope.$apply(function () {
                     var hdPrivateKey = new bitcore.HDPrivateKey(hdKey.data);
                     hdPrivateKey.network = bitcore.Networks.get("openchain");
                     walletSettings.setRootKey(hdPrivateKey);
-
                     loadingEndpoints.then(function () {
+                        $scope.getClients();
                         $location.path("/");
                     });
                 })
             }, false);
-
             worker.postMessage({ mnemonic: $scope.properties.seed });
-
             $scope.display = "loading";
         }
         else {

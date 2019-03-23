@@ -67,3 +67,10 @@ app.get('/compteList',function(req,res){
     res.send(JSON.stringify(data)); 
   }); 
 });
+
+app.get('/api/clientList',function(req,res){
+	console.log("/clientList: " + util.inspect(req.query, {showHidden: false, depth: null}));
+  mysqlDB.clientList(req.query, function(data) {
+    res.send(JSON.stringify(data)); 
+  });
+});

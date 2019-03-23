@@ -98,4 +98,14 @@ exports.compteList = function(data, calback) {
 	});
 }
 
+exports.clientList = function(data, calback) {
+	con.query("SELECT Login, Email, Address, Nom, Prenom FROM OpenchainUser.Client WHERE Banque=?",[data.banque], function(err, result){
+		Response = {
+			succes: !err && result.length != 0,
+			data : !err && result.length == 0 ? "banque non TROUVE" : result,
+			access_token: !err ? jwt.sign({id:result.id}, 'secretkey') : ''}
+		calback(Response);
+	});
+}
+
 
