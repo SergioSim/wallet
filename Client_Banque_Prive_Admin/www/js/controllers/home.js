@@ -117,6 +117,7 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
 
     $scope.cancelSend = function () {
         $route.reload();
+        $rootScope.getClients();
     }
 
     $scope.viewTransactions = function(transactions){

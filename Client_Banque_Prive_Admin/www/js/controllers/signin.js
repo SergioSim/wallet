@@ -39,7 +39,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
         $scope.display = "signin";
     };
 
-    $scope.getClients = function () {
+    $rootScope.getClients = function () {
         console.log("get Clients ");
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "http://127.0.0.1:8085/api/clientList?banque=CapitalBank", true);
@@ -78,7 +78,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                     hdPrivateKey.network = bitcore.Networks.get("openchain");
                     walletSettings.setRootKey(hdPrivateKey);
                     loadingEndpoints.then(function () {
-                        $scope.getClients();
+                        $rootScope.getClients();
                         $location.path("/");
                     });
                 })
