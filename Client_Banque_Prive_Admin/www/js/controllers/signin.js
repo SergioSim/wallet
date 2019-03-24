@@ -66,7 +66,6 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                                          client.transactions2.push({ key: "", valueDelta: "", value: "", date: ""});
                                      }
                                      else {
-                                         console.log(details.mutation.records);
                                          if(details.mutation.records.length == 2) {
                                             var keys = [RecordKey.parse(details.mutation.records[0].key), RecordKey.parse(details.mutation.records[1].key)];
                                             if(keys[0].recordType == "ACC"){
@@ -75,10 +74,8 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                                                 akeys.push("/p2pkg/" + keys[1].path.parts[1] + "/");
                                                 var me = 0;
                                                 var him = 1;
-                                                console.log("me");
                                                 if(keys[0] !== client.Address){
                                                     me = 1; him = 0
-                                                    console.log("him");
                                                 }
                                                 if(keys[me].name !== "/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/") return;
                                                 endpoints.apiService.getAccountRecord(keys[me].path.toString(), keys[me].name, details.mutation.records[me].version).then(function (previousRecord) {
