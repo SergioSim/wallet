@@ -59,6 +59,9 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                         }
                         endpoints.apiService.getRecordMutations(client.Address + ":ACC:/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/").then(function (result) {
                             client.transactions = result.map(function (item) { return item.toHex(); });
+                            endpoints.apiService.getAccountRecord(client.Address, "/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/").then(function (res) {
+                                client.Balance = res.balance.low;
+                            });
                         });
                     });
                     console.log($scope.clientList);
