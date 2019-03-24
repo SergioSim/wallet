@@ -16,8 +16,8 @@ let transporter =nodemailer.createTransport({
     secure: false,
     port :25,
     auth: {
-        user:'ibeghouchene.nadir@gmail.com' ,
-        pass: 'N1a4D2i3R'
+        user:'HTG666663@gmail.com' ,
+        pass: 'HTG666HTG666663'
     },
     tls: {
         rejectUnauthorized: false
@@ -29,7 +29,7 @@ exports.createUser = function(data, calback) {
    { 
 	   if(!err){
 		let HeplerOptions = {
-			from :'"NAODUDU  EDZEFZEF3"  ibeghouchene.nadir@gmail.com',
+			from :'"Projet Tpt" HTG666663@gmail.com',
 			to : data.email,
 			subject :'Confirmation de vreation de compte',
 			text: 'Bonjour, VOTRE COPTE A BIEN ETE CRRER',
