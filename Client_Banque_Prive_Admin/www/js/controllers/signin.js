@@ -59,6 +59,42 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                         }
                         endpoints.apiService.getRecordMutations(client.Address + ":ACC:/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/").then(function (result) {
                             client.transactions = result.map(function (item) { return item.toHex(); });
+                            client.transactions2 = []; 
+                            (client.transactions).forEach(function (transaction){
+                                endpoints.apiService.getTransaction(transaction).then(function (details) {
+                                     if (details == null) {
+                                         client.transactions2.push({ key: "", valueDelta: "", value: "", date: ""});
+                                     }
+                                     else {
+                                         console.log(details.mutation.records);
+                                         if(details.mutation.records.length == 2) {
+                                            var keys = [RecordKey.parse(details.mutation.records[0].key), RecordKey.parse(details.mutation.records[1].key)];
+                                            if(keys[0].recordType == "ACC"){
+                                                var akeys = [];
+                                                akeys.push("/p2pkg/" + keys[0].path.parts[1] + "/");
+                                                akeys.push("/p2pkg/" + keys[1].path.parts[1] + "/");
+                                                var me = 0;
+                                                var him = 1;
+                                                console.log("me");
+                                                if(keys[0] !== client.Address){
+                                                    me = 1; him = 0
+                                                    console.log("him");
+                                                }
+                                                if(keys[me].name !== "/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/") return;
+                                                endpoints.apiService.getAccountRecord(keys[me].path.toString(), keys[me].name, details.mutation.records[me].version).then(function (previousRecord) {
+                                                    var newValue = details.mutation.records[me].value == null ? null : encoding.decodeInt64(details.mutation.records[me].value.data);
+                                                    client.transactions2.push({
+                                                        key: akeys[him],
+                                                        valueDelta: newValue == null ? null : newValue.subtract(previousRecord.balance),
+                                                        value: newValue,
+                                                        date: moment(details.transaction.timestamp.toString(), "X").format("MMMM Do YYYY, hh:mm:ss")
+                                                    });
+                                                });
+                                            }
+                                         }
+                                     }
+                                });
+                            });                            
                             endpoints.apiService.getAccountRecord(client.Address, "/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/").then(function (res) {
                                 client.Balance = res.balance.low;
                             });
@@ -69,8 +105,8 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                     console.log("something went bad :(");
                 }
             }};
-            xhr.send();   
-        };
+        xhr.send();   
+    };
 
     $scope.submit = function () {
         if (Mnemonic.isValid($scope.properties.seed)) {
