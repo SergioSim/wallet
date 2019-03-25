@@ -120,9 +120,17 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
         $rootScope.getClients();
     }
 
-    $scope.viewTransactions = function(transactions){
+    $scope.viewTransactions = function(transactions, client){
         console.log("view transactions on " );
         console.log(transactions);
         $scope.transactions = transactions;
+        $scope.Clienttransactions = client.transactions2;
+        $scope.Clienttransactions.sort((a,b) => {
+            if (a.date < b.date)
+                return 1;
+            if (a.date > b.date)
+                return -1;
+            return 0;
+        });
     }
 });
