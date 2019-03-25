@@ -107,6 +107,68 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                     hdPrivateKey.network = bitcore.Networks.get("openchain");
                     console.log(walletSettings);
                     walletSettings.setRootKey(hdPrivateKey);
+                    var endpoints = endpointManager.endpoints
+                        for (var key in endpoints) {
+                            endpoints = endpoints[key];
+                            break;
+                        }
+                        endpoints.apiService.getRecordMutations(walletSettings.rootAccount + ":ACC:/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/").then(function (result) {
+                            $rootScope.transactions = result.map(function (item) { return item.toHex(); });
+                            $rootScope.transactions2 = []; 
+                            var i = ($rootScope.transactions).length;
+                            var ii = 0;
+                            ($rootScope.transactions).forEach(function (transaction){
+                                endpoints.apiService.getTransaction(transaction).then(function (details) {
+                                     if (details == null) {
+                                        $rootScope.transactions2.push({ key: "", valueDelta: "", value: "", date: ""});
+                                     }
+                                     else {
+                                         if(details.mutation.records.length == 2) {
+                                            var keys = [RecordKey.parse(details.mutation.records[0].key), RecordKey.parse(details.mutation.records[1].key)];
+                                            if(keys[0].recordType == "ACC"){
+                                                var akeys = [];
+                                                akeys.push("/p2pkh/" + keys[0].path.parts[1] + "/");
+                                                akeys.push("/p2pkh/" + keys[1].path.parts[1] + "/");
+                                                var me = 0;
+                                                var him = 1;
+                                                var val1 = akeys[him].valueOf().trim().normalize('NFC');
+                                                var val2 = walletSettings.rootAccount.valueOf().trim().normalize('NFC');                                               
+                                                if( val1 === val2){
+                                                    me = 1; him = 0
+                                                }
+                                                if(keys[me].name !== "/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/"){
+                                                    ii +=  1;
+                                                    return;
+                                                }
+                                                endpoints.apiService.getAccountRecord(keys[me].path.toString(), keys[me].name, details.mutation.records[me].version).then(function (previousRecord) {
+                                                    ii +=  1;
+                                                    var newValue = details.mutation.records[me].value == null ? null : encoding.decodeInt64(details.mutation.records[me].value.data);
+                                                    $rootScope.transactions2.push({
+                                                        key: akeys[him],
+                                                        valueDelta: newValue == null ? null : newValue.subtract(previousRecord.balance),
+                                                        value: newValue,
+                                                        date: moment(details.transaction.timestamp.toString(), "X").format("MMMM Do YYYY, hh:mm:ss")
+                                                    });
+                                                }).then(function(){
+                                                    console.log("ii = " + ii + " i = " + i);
+                                                    if(ii != i) return;
+                                                    $rootScope.transactions2.sort((a,b) => {
+                                                        if (a.date < b.date)
+                                                            return 1;
+                                                        if (a.date > b.date)
+                                                            return -1;
+                                                        return 0;
+                                                    });
+                                                    console.log("transactions: ");
+                                                    console.log($rootScope.transactions2);      
+                                                    console.log("lenght: " + $rootScope.transactions2.length);
+                                                });
+                                            }
+                                         }
+                                     }
+                                });
+                            });                   
+                        });
                     if(getAccount) {
                         console.log(walletSettings.rootAccount);
                         callback(walletSettings.rootAccount);

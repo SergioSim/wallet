@@ -156,6 +156,24 @@
     </tbody>  
   </table>
 </div>
+
+<div>
+  <h4>Mes transactions</h4>
+  <table class="table table-striped wide-table">
+    <tr>
+      <th class="col-md-4">Date</th>
+      <th class="col-md-4">Path</th>
+      <th class="col-md-2">Balance change</th>
+      <th class="col-md-2">New balance</th>
+    </tr>
+    <tr ng-repeat="record in transactions2">
+      <td><span title="{{ record.date }}">{{ record.date }}</span></td>
+      <td><span title="{{ record.key }}">{{ record.key }}</span></td>
+      <td>{{ record.valueDelta.toString() }}</td>
+      <td>{{ record.value.toString() }}</td>
+    </tr>
+  </table>
+</div>
   <!-- Send Screen -->
   <div ng-switch-when="send" class="row">
     <div class="col-md-8 col-md-offset-2">
