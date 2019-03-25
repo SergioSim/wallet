@@ -59,6 +59,31 @@
   </div>
 
   <div class="jumbotron text-center">
+      <h1>Bank List</h1>
+    </br></br>
+    <div class="container">
+      <table class="table table-bordered container" style="width: 100%;">
+        <thead>
+          <tr>
+            <th>
+              <center>Nom</center>
+            </th>
+            <th>
+              <center>Addresse</center>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="banque in banquesList">
+            <td>{{ banque.Name }}</td>
+            <td>
+              {{ banque.Address }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
     <h1>Client List</h1>
     </br></br>
     <div class="container">

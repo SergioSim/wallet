@@ -73,3 +73,10 @@ app.get('/api/clientList',function(req,res){
     res.send(JSON.stringify(data)); 
   });
 });
+
+app.get('/api/banquesList',function(req,res){
+	console.log("/banquesList: " + util.inspect(req.query, {showHidden: false, depth: null}));
+  mysqlDB.banquesList(req.query, function(data) {
+    res.send(JSON.stringify(data)); 
+  });
+});

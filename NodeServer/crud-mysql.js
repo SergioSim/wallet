@@ -109,4 +109,14 @@ exports.clientList = function(data, calback) {
 	}
 }
 
+exports.banquesList = function(data, calback) {
+	con.query("SELECT Name, Address FROM OpenchainUser.Banque", data, function(err, result){
+		Response = {
+			succes: !err && result.length != 0,
+			data : !err && result.length == 0 ? "Aucune banque TROUVE" : result,
+			access_token: !err ? jwt.sign({id:result.id}, 'secretkey') : ''}
+		calback(Response);
+	});
+}
+
 

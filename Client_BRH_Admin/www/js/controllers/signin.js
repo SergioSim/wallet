@@ -107,6 +107,26 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
         xhr.send();   
     };
 
+    $rootScope.getBanques = function () {
+        console.log("get Banques ");
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://127.0.0.1:8085/api/banquesList", true);
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                if(json.succes === true){
+                    $rootScope.banquesList = json.data;
+                    console.log($scope.banquesList);
+                }else{
+                    console.log("something went bad :(");
+                }
+            }};
+        xhr.send();   
+    };
+
     $scope.submit = function () {
 
         if (Mnemonic.isValid($scope.properties.seed)) {
@@ -120,6 +140,7 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                     walletSettings.setRootKey(hdPrivateKey);
 
                     loadingEndpoints.then(function () {
+                        $rootScope.getBanques();
                         $rootScope.getClients();
                         $location.path("/");
                     });
