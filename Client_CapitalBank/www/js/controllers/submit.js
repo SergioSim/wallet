@@ -40,7 +40,9 @@ module.controller("SubmitController", function ($scope, $rootScope, $location, c
                 $scope.display = "success";
                 $scope.transactionHash = response["transaction_hash"];
                 $scope.mutationHash = response["mutation_hash"];
+                $rootScope.updateTransactions($rootScope.rootAccount);
             }, function (response) {
+                $rootScope.updateTransactions($rootScope.rootAccount);
                 $scope.display = "error";
 
                 if (response.status == 400) {
@@ -52,6 +54,7 @@ module.controller("SubmitController", function ($scope, $rootScope, $location, c
     }
 
     $scope.cancelSend = function () {
+        $rootScope.updateTransactions($rootScope.rootAccount);
         $location.path("/");
         return;
     }
