@@ -80,7 +80,7 @@ exports.deleteContact = function(data, calback) {
 }
 
 exports.compteList = function(data, calback) {
-	con.query("SELECT * FROM OpenchainUser.Contact WHERE ClientProprietaire=?",[data.login], function(err, result){
+	con.query("SELECT OpenchainUser.Contact.Nom, OpenchainUser.Contact.Prenom, OpenchainUser.Contact.ClientContact, OpenchainUser.Client.Address FROM OpenchainUser.Contact LEFT JOIN OpenchainUser.Client ON OpenchainUser.Contact.ClientContact = OpenchainUser.Client.Login WHERE ClientProprietaire=?",[data.login], function(err, result){
 		Response = {
 			succes: !err && result.length != 0,
 			data : !err && result.length == 0 ? "utiisateur non TROUVE" : result,

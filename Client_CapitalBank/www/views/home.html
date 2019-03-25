@@ -141,7 +141,8 @@
       <tr>
         <th><center>Nom</center></th>
         <th><center>Prénom</center></th>
-        <th><center>Clé</center></th>
+        <th><center>Login</center></th>
+        <th><center>Address</center></th>
         <th><center>Action</center></th>
       </tr>		
     </thead>
@@ -151,6 +152,7 @@
         <td>{{ compte.Nom }}</td>
         <td>{{ compte.Prenom }}</td>
         <td>{{ compte.ClientContact }}</td>
+        <td>{{ compte.Address }}</td>
      <td><a class="btn btn-xs delete-record" ng-click="removeRow($index)"><i class="glyphicon glyphicon-trash" href="#/"  ng-click="deleteContact(compte.ClientContact)"></i></a></td>
       </tr>
     </tbody>  
