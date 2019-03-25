@@ -70,11 +70,13 @@ module.controller("SignInController", function ($scope, $rootScope, $location, e
                                             var keys = [RecordKey.parse(details.mutation.records[0].key), RecordKey.parse(details.mutation.records[1].key)];
                                             if(keys[0].recordType == "ACC"){
                                                 var akeys = [];
-                                                akeys.push("/p2pkg/" + keys[0].path.parts[1] + "/");
-                                                akeys.push("/p2pkg/" + keys[1].path.parts[1] + "/");
+                                                akeys.push("/p2pkh/" + keys[0].path.parts[1] + "/");
+                                                akeys.push("/p2pkh/" + keys[1].path.parts[1] + "/");
                                                 var me = 0;
                                                 var him = 1;
-                                                if(keys[0] !== client.Address){
+                                                var val1 = akeys[him].valueOf().trim().normalize('NFC');
+                                                var val2 = client.Address.valueOf().trim().normalize('NFC');                                               
+                                                if( val1 === val2){
                                                     me = 1; him = 0
                                                 }
                                                 if(keys[me].name !== "/asset/p2pkh/XpJVW9VbZD6UJF5YdCNJ7syTvEhFLHP1ke/") return;
