@@ -19,7 +19,7 @@ var Long = sdk.Long;
 // ***** HomeController *****
 // **************************
 
-module.controller("HomeController", function ($scope, $rootScope, controllerService, $route, $q, walletSettings, endpointManager, TransactionBuilder, validator, AssetData) {
+module.controller("HomeController", function ($scope, $rootScope, $location, controllerService, $route, $q, walletSettings, endpointManager, TransactionBuilder, validator, AssetData) {
 
     if (!controllerService.checkState())
         return;
@@ -79,6 +79,66 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
         $scope.sendStatus = "send-active";
     };
 
+    $scope.createBank = function () {
+        console.log("createbank");
+        if($scope.properties.name != ""){
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", 'http://127.0.0.1:8085/api/createBank', true);
+            //Send the proper header information along with the request
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                console.log('readystatechanged');
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json);
+                    if(json.succes === true){
+                        $rootScope.getBanques();
+                    }else{
+                        console.log("something went bad :(");
+                    }
+                }};
+            var generatedMnemonic = new Mnemonic();
+            $scope.properties.seed = generatedMnemonic.toString();
+            $scope.submit(true, function(address){
+                console.log("address: " + address);
+                var data = JSON.stringify({"name": $scope.properties.name, "wallet": $scope.properties.seed, "address": address});
+                console.log(data);
+                xhr.send(data);
+            })
+        }
+    };
+
+    $scope.submit = function (getAccount = false, callback = function(){}) {
+
+        if (Mnemonic.isValid($scope.properties.seed)) {
+
+            var worker = new Worker("js/derive.js");
+
+            worker.addEventListener("message", function (hdKey) {
+                $rootScope.$apply(function () {
+                    var hdPrivateKey = new bitcore.HDPrivateKey(hdKey.data);
+                    hdPrivateKey.network = bitcore.Networks.get("openchain");
+                    walletSettings.setRootKey(hdPrivateKey);
+                    $rootScope.rootAccount = walletSettings.rootAccount;
+
+                    endpointManager.loadEndpoints().then(function () {
+                        $rootScope.getBanques();
+                        $rootScope.getClients();
+                        callback(walletSettings.rootAccount);
+                        $location.path("/");
+                    });
+                })
+            }, false);
+
+            worker.postMessage({ mnemonic: $scope.properties.seed });
+
+            $scope.display = "loading";
+        }
+        else {
+            $scope.properties.signinForm.seed.$setValidity("invalidSeed", false);
+        }
+    };
+
     // Handle sending the asset
     $scope.confirmSend = function (destinationField) {
         var sendAmount = Long.fromString($scope.fields.sendAmount);
@@ -118,7 +178,7 @@ module.controller("HomeController", function ($scope, $rootScope, controllerServ
     $scope.cancelSend = function () {
         $route.reload();
     }
-    
+
     $scope.viewTransactions = function(transactions, client){
         console.log("view transactions on " );
         console.log(transactions);

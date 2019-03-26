@@ -31,6 +31,13 @@ app.post('/api/createUser', function(req, res) {
 	});
 });
 
+app.post('/api/createBank', function(req, res) {
+	console.log("/createBank: " + util.inspect(req.body, {showHidden: false, depth: null}));
+	mysqlDB.createBank(req.body, function(data) {
+		res.send(JSON.stringify(data)); 
+	});
+});
+
 app.post('/api/login', function(req, res) {
 	console.log("/login: " + JSON.stringify(req.body));
 	mysqlDB.login(req.body, function(data) {

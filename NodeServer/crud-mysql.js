@@ -23,6 +23,7 @@ let transporter =nodemailer.createTransport({
         rejectUnauthorized: false
     }
 });
+
 exports.createUser = function(data, calback) {	
 	con.query("INSERT INTO OpenchainUser.Client  (Login, Email, Password, Wallet, Address, Banque) VALUES (?,?,?,?,?,?)", [data.login, data.email, data.password, data.wallet, data.address, data.banque], 
 	function(err, result)
@@ -31,8 +32,8 @@ exports.createUser = function(data, calback) {
 		let HeplerOptions = {
 			from :'"Projet Tpt" HTG666663@gmail.com',
 			to : data.email,
-			subject :'Confirmation de vreation de compte',
-			text: 'Bonjour, VOTRE COPTE A BIEN ETE CRRER',
+			subject :'Confirmation de création de compte',
+			text: 'Bonjour, votre compte à bien été créer',
 		};
 		transporter.sendMail(HeplerOptions,(error,info)=>{
 		
@@ -44,6 +45,19 @@ exports.createUser = function(data, calback) {
 	   };
 	   
 		calback({ succes: !err});
+	});
+}
+
+exports.createBank = function(data, calback) {	
+	console.log(data);
+	con.query("INSERT INTO OpenchainUser.Banque  (Name, Wallet, Address) VALUES (?,?,?)", [data.name, data.wallet, data.address], 
+	function(err, result)
+   { 
+	   if(!err){
+		calback({ succes: !err});
+	   } else {
+		calback({ succes: err});
+	   }
 	});
 }
 

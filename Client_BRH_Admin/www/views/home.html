@@ -59,7 +59,36 @@
   </div>
 
   <div class="jumbotron text-center">
-      <h1>Bank List</h1>
+    <!-- New bank -->
+    <form method="post" ng-submit="createBank()" name="properties.newBankForm" autocomplete="off">
+
+        <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Création d'une nouvelle banque</h3>
+        </div>
+        <div class="panel-body">
+  
+          <div class="form-group">
+              <label class="control-label" for="name">Nom de la banque</label>
+              <input class="form-control hash-password" name="name" type="text" id="name" ng-model="properties.name" placeholder="Nom">
+              
+            </div>
+  
+        </div>
+        <div class="panel-footer text-right">
+  
+          <div class="row">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary">Créer</button>
+              <button type="button" class="btn btn-primary" ng-click="back()">Fermer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      </form>
+
+    <h1>Bank List</h1>
     </br></br>
     <div class="container">
       <table class="table table-bordered container" style="width: 100%;">
@@ -69,7 +98,7 @@
               <center>Nom</center>
             </th>
             <th>
-              <center>Addresse</center>
+              <center>Adresse</center>
             </th>
           </tr>
         </thead>
@@ -103,7 +132,7 @@
               <center>Email</center>
             </th>
             <th>
-              <center>Addresse</center>
+              <center>Adresse</center>
             </th>
             <th>
               <center>Solde</center>
